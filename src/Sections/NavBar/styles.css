@@ -1,0 +1,12 @@
+.slide{
+    animation: slide-in 500ms linear;
+}
+@keyframes slide-in {
+    from {
+      transform: translatey(-100%);
+    }
+  
+    to {
+      transform: translatey(0%);
+    }
+  }
