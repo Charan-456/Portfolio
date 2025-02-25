@@ -18,10 +18,10 @@ const Nav = () => {
     const handleScroll = () => {
       if (window.scrollY > 100 && window.scrollY<1000) {
         // setScrolled(true);
-        !isSmallScreen ? setScrollPx(window.scrollY*0.3):setScrollPx(25.5);
+        !isSmallScreen ? setScrollPx(window.scrollY*0.3):setScrollPx(0);
       }
       else if(window.scrollY>1000){
-        !isSmallScreen ? setScrollPx(999*0.3): setScrollPx(25.5);
+        !isSmallScreen ? setScrollPx(999*0.3): setScrollPx(0);
       }
       else{
         setScrollPx(0);
