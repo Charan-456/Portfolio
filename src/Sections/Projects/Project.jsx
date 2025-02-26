@@ -2,9 +2,10 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import ProjectDesktop from './ProjectDesktop';
 import ProjectMob from './ProjectMob';
+import { useRef } from 'react';
 
 const Project = () => {
-
+  const section1Ref = useRef(null);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
   const handleResize = () => {
     setIsSmallScreen(window.innerWidth < 768);
@@ -38,7 +39,7 @@ const Project = () => {
     }
   ];
   return (
-     <div className='px-4 my-25'>
+     <div ref={section1Ref} id = 'projects' className='px-4 my-25'>
        {isSmallScreen ? <ProjectMob projects={projects}/> : <ProjectDesktop projects={projects} />}
      </div>
   )

@@ -4,14 +4,14 @@ import NavBar from "./NavBar";
 const Nav = () => {
 //   const [scrolled, setScrolled] = useState(false);
   const [scrollPx, setScrollPx] = useState(0);
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 500);
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 760);
 
 
 
   useEffect(() => {
 
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth < 500);
+      setIsSmallScreen(window.innerWidth < 760);
     };
    
     
@@ -39,7 +39,7 @@ const Nav = () => {
   }, [isSmallScreen]);
 
   return (
-    <div className=" relative z-100">
+    <div className=" relative z-100 ">
       {/* {scrolled ? <FollowNav/> : <Nav />} */}
       <NavBar scrollPx={scrollPx}/>
     </div>
