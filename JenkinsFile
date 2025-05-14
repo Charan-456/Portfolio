@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment{
-        ECR="977099016333.dkr.ecr.us-east-1.amazonaws.com/charan"
+        ECR="977xxxxxxx.dkr.ecr.${AWS_REGION}.amazonaws.com/charan"
         IMAGE_TAG="${env.BUILD_ID}"
         AWS_REGION="us-east-1"
         APP_NAME="Portfolio"
