@@ -1,17 +1,19 @@
 pipeline{
     agent any
     environment{
-        ECR="977xxxxxxx.dkr.ecr.${AWS_REGION}.amazonaws.com/charan"
+        ECR="9xxx09901xxxx.dkr.ecr.us-east-1.amazonaws.com/charan"
         IMAGE_TAG="${env.BUILD_ID}"
         AWS_REGION="us-east-1"
-        APP_NAME="Portfolio"
+        APP_NAME="portfolio"
 
+    }
+    tools{
+        nodejs "Nodejs 24"
     }
     stages{
         stage("Code Fetch"){
             steps{
-                git branch: 'main' ,
-                url: 'https://github.com/Charan-456/Portfolio.git'
+                git branch: 'main', url: 'https://github.com/Charan-456/Portfolio.git'
             }
         }
         stage("Docker image build"){
@@ -36,9 +38,18 @@ pipeline{
 
             stage("ECR Push"){
                 steps{
+                    script{
+                    withCredentials([[
+                        $class: 'AmazonWebServicesCredentialsBinding',
+                        credentialsId: "aws-credential",
+                        accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                        secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                    ]]) {
+                    sh "aws ecr create-repository --repository-name charan/portfolio --region ${AWS_REGION} || true"
                     docker.withRegistry("https://${ECR}","ecr:${AWS_REGION}:aws-credential"){
                         docker.image("${ECR}/${APP_NAME}:${IMAGE_TAG}").push()
                         docker.image("${ECR}/${APP_NAME}:${IMAGE_TAG}").push("latest")
+                    }}
                     }
                 }
             }
