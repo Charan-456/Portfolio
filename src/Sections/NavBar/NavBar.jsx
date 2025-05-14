@@ -66,7 +66,7 @@ const NavBar = ({ scrollPx }) => {
           borderRadius: `${scrollPx ? '2rem' : ''}`,
           top: `${scrollPx ? '1rem' : ''}`
         }}
-        className={`fixed top-0 px-10 bg-gradient-to-r from-gray-300 to-gray-400 dark:bg-gradient-to-l dark:from-black dark:via-gray-900 dark:to-blue-700 slide dark:text-white h-15 flex justify-between items-center z-100 transition-all duration-400`}>
+        className={`fixed top-0 px-10 bg-gradient-to-r from-gray-300 to-gray-400 dark:bg-gradient-to-l dark:from-black dark:via-gray-900 dark:to-blue-700 slide dark:text-white h-15 flex justify-between items-center z-100 transition-all duration-400 backdrop-blur-2xl`}>
         <SlidingLine entries={[{name:"CR", id:"home"}]} />
 
         <div ref={hamburgerRef} className='sm:hidden cursor-pointer'>
