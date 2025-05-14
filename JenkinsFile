@@ -45,7 +45,7 @@ pipeline{
                         accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                     ]]) {
-                    sh "aws ecr create-repository --repository-name $APP_NAME --region ${AWS_REGION} || true"
+                    sh "aws ecr create-repository --repository-name ${APP_NAME} --region ${AWS_REGION} || true"
                     docker.withRegistry("https://${ECR}","ecr:${AWS_REGION}:aws-credential"){
                         docker.image("${ECR}/${APP_NAME}:${IMAGE_TAG}").push()
                         docker.image("${ECR}/${APP_NAME}:${IMAGE_TAG}").push("latest")
