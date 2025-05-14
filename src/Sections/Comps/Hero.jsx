@@ -14,7 +14,7 @@ const Hero = () => {
           </div>
           <h1  className='text-indigo-500  font-bold'>
             <TypingAnimation className={'sm:text-5xl'} duration={50}>
-            Hey Hi, I&apos;m Charan Kumar Reddy
+            Hey Hi, I&apos;m Charan Kumar Reddy Yalamakonda
             </TypingAnimation>
             
             
