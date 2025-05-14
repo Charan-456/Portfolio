@@ -1,0 +1,46 @@
+pipeline{
+    agent any
+    environment{
+        ECR="977099016333.dkr.ecr.us-east-1.amazonaws.com/charan"
+        IMAGE_TAG="${env.BUILD_ID}"
+        AWS_REGION="us-east-1"
+        APP_NAME="Portfolio"
+
+    }
+    stages{
+        stage("Code Fetch"){
+            steps{
+                git branch: 'main' ,
+                url: 'https://github.com/Charan-456/Portfolio.git'
+            }
+        }
+        stage("Docker image build"){
+           steps{
+                script{
+                    def image=docker.build("${ECR}/${APP_NAME}:${IMAGE_TAG}","--file Dockerfile .")
+                    image.inside{sh 'echo "Image is succefully built"'}
+                }
+            }
+            
+        }
+        stage("Dependency installation"){
+            steps{
+                sh 'npm install'
+            }
+        }
+        stage("Build"){
+            steps{
+                sh 'npm run build'
+            }
+        }
+
+            stage("ECR Push"){
+                steps{
+                    docker.withRegistry("https://${ECR}","ecr:${AWS_REGION}:aws-credential"){
+                        docker.image("${ECR}/${APP_NAME}:${IMAGE_TAG}").push()
+                        docker.image("${ECR}/${APP_NAME}:${IMAGE_TAG}").push("latest")
+                    }
+                }
+            }
+        }
+    }
