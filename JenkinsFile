@@ -1,7 +1,7 @@
 pipeline{
     agent any
     environment{
-        ECR="9xxx09901xxxx.dkr.ecr.us-east-1.amazonaws.com/charan"
+        ECR="9xxx09901xxxx.dkr.ecr.us-east-1.amazonaws.com"
         IMAGE_TAG="${env.BUILD_ID}"
         AWS_REGION="us-east-1"
         APP_NAME="portfolio"
@@ -45,7 +45,7 @@ pipeline{
                         accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                         secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
                     ]]) {
-                    sh "aws ecr create-repository --repository-name charan/portfolio --region ${AWS_REGION} || true"
+                    sh "aws ecr create-repository --repository-name $APP_NAME --region ${AWS_REGION} || true"
                     docker.withRegistry("https://${ECR}","ecr:${AWS_REGION}:aws-credential"){
                         docker.image("${ECR}/${APP_NAME}:${IMAGE_TAG}").push()
                         docker.image("${ECR}/${APP_NAME}:${IMAGE_TAG}").push("latest")
