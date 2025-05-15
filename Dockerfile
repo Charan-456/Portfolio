@@ -13,6 +13,9 @@ RUN npm run build
 
 FROM nginx:stable-alpine3.21-slim
 
+RUN apk update && apk add --no-cache curl
+#installing curl in nginx alpine for health checks
+
 COPY --from=build /app/dist /usr/share/nginx/html
 
 EXPOSE 80
